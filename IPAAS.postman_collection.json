@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "7f6685af-b296-4390-98e1-ab3e92abfee6",
+		"name": "IPAAS",
+		"description": "Foi criado a api conforme solicitado. Cada endpoint se refere a sua classe que está demonstrada na documentação.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1 - Organização",
+			"item": [
+				{
+					"name": "Criar Organização",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"organizacao2\",\r\n    \"usuario\": \"silvio\",\r\n    \"senha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/organizacao/",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"organizacao",
+								""
+							]
+						},
+						"description": "Nome da organização\n\nUsuario Master\n\nSenha Master"
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Organização",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{servidor}}/organizacao/listar",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"organizacao",
+								"listar"
+							]
+						},
+						"description": "Lista todas as organizações e seu usuário master."
+					},
+					"response": []
+				}
+			],
+			"description": "Na classe de organização a criação é simples, você precisa nomear a organização e criar um usuário master."
+		},
+		{
+			"name": "2- Workspace",
+			"item": [
+				{
+					"name": "Criar Workspace",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"workspaceTeste\",\r\n    \"organizacao_id\": \"1\",\r\n    \"usuario\" : \"silvio\",\r\n    \"senha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/workspace/",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"workspace",
+								""
+							]
+						},
+						"description": "Para criação de uma nova workspace, você precisa informar o nome, o ID da organização que vai ser criada, e usuário e senha do master da organização. Se não tiver acesso a organização ele dará erro."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Workspace",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\" : \"silvio\",\r\n    \"senha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/workspace/listar/{{organizacao_id}}",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"workspace",
+								"listar",
+								"{{organizacao_id}}"
+							]
+						},
+						"description": "Passando como paramentro na url o ID da organização, e respectivamente seu usuário e senha, você consegue verificar quais são as workspaces que tem naquela organização."
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Workspace",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"nome\": \"workspaceTeste2\",\r\n    \"organizacao_id\": \"1\",\r\n    \"usuario\" : \"silvio\",\r\n    \"senha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/workspace/{{workspace_id}}",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"workspace",
+								"{{workspace_id}}"
+							]
+						},
+						"description": "Para atualizar a workspace você pode alterar seu nome e também sua organização se necessário, e usuario e senha master da organização."
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Workspace",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\" : \"silvio\",\r\n    \"senha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/workspace/{{workspace_id}}",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"workspace",
+								"{{workspace_id}}"
+							]
+						},
+						"description": "Para deletar basta colocar o ID na url como parametro e seu usuario e senha master."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3 - Api",
+			"item": [
+				{
+					"name": "Criar Api",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\" : \"apiTeste\",\r\n\t\"especificacao\" : \"Aqui vai ser um Object das especificações da API\",\r\n\t\"workspace_id\" : 1,\r\n\t\"usuario\" : \"silvio\",\r\n\t\"senha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/api/",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"api",
+								""
+							]
+						},
+						"description": "Para criação da API voce precisa do nome, da especificação da API, como também o workspace que você ira alocar e o usuario e senha master."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Api",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\" : \"silvio\",\r\n    \"senha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/api/listar/{{workspace_id}}",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"api",
+								"listar",
+								"{{workspace_id}}"
+							]
+						},
+						"description": "Para listar, basta colocar o id do WORKSPACE e será listado todas as APIs que há dentro dela. E usuario e senha para permissão."
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Api",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"nome\" : \"apiTeste2\",\r\n\t\"especificacao\" : \"Aqui vai ser um Object das especificações da API.\",\r\n\t\"workspace_id\" : 1,\r\n\t\"usuario\" : \"silvio\",\r\n\t\"senha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/api/{{workspace_id}}",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"api",
+								"{{workspace_id}}"
+							]
+						},
+						"description": "Para atualizar basta colocar os mesmos campos da criação, com o ID como parametro na url da workspace e usuario e senha."
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Api",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\" : \"silvio\",\r\n    \"senha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/api/{{api_id}}",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"api",
+								"{{api_id}}"
+							]
+						},
+						"description": "Para deletar api basta colocar o ID dela e usuario e senha."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4- Usuario",
+			"item": [
+				{
+					"name": "Criar Usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\" : \"silvio2\",\r\n    \"senha\" : \"12345\",\r\n    \"organizacao_id\": 1,\r\n    \"admin\": \"silvio\",\r\n    \"senhaAdmin\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/usuario/",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"usuario",
+								""
+							]
+						},
+						"description": "A criação de usuario precisa de 2 usuarios, eu coloquei admin e senhadmin para separar o usuario que vai ser criado e o usuario master."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Usuarios",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\" : \"silvio\",\r\n    \"senha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/usuario/listar/{{organizacao_id}}",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"usuario",
+								"listar",
+								"{{organizacao_id}}"
+							]
+						},
+						"description": "Para listar precisa do ID da organização como parametro e o usuario e senha para verificar os usuarios."
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\" : \"silvio2\",\r\n    \"senha\" : \"12345\",\r\n    \"organizacao_id\" : 2,\r\n    \"admin\" : \"silvio\",\r\n    \"adminSenha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/usuario/{{usuario_id}}",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"usuario",
+								"{{usuario_id}}"
+							]
+						},
+						"description": "A atualização funciona do mesmo jeito da criação mas com o ID do usuario que quer ser alterado."
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"usuario\" : \"silvio\",\r\n   \"senha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/usuario/{{usuario_id}}",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"usuario",
+								"{{usuario_id}}"
+							]
+						},
+						"description": "Para deletar, basta colocar usuario e senha e o ID como parametro na url"
+					},
+					"response": []
+				},
+				{
+					"name": "Alocar a uma organização",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\" : \"silvio\",\r\n    \"senha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/usuario/organizacao/{{organizacao_id}}/{{usuario_id_alocado}}",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"usuario",
+								"organizacao",
+								"{{organizacao_id}}",
+								"{{usuario_id_alocado}}"
+							]
+						},
+						"description": "Para alocação basta ter o ID da organização / ID do usuario quer quer ser alocado. Usuario e senha master são necessário."
+					},
+					"response": []
+				},
+				{
+					"name": "Alocar a uma Workspace",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\" : \"silvio\",\r\n    \"senha\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{servidor}}/usuario/workspace/{{workspace_id}}/{{usuario_id_alocado}}",
+							"host": [
+								"{{servidor}}"
+							],
+							"path": [
+								"usuario",
+								"workspace",
+								"{{workspace_id}}",
+								"{{usuario_id_alocado}}"
+							]
+						},
+						"description": "Para alocar no workspace voce precisa do workspace id / id usuario que vai ser alocado. Tais como o usuario master."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "servidor",
+			"value": "localhost:8080"
+		},
+		{
+			"key": "workspace_id",
+			"value": "1"
+		},
+		{
+			"key": "organizacao_id",
+			"value": "1"
+		},
+		{
+			"key": "usuario_id",
+			"value": "silvio2"
+		},
+		{
+			"key": "api_id",
+			"value": "1"
+		},
+		{
+			"key": "usuario_id_alocado",
+			"value": "silvio2"
+		}
+	]
+}

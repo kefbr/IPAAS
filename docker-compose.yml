@@ -1,0 +1,26 @@
+version: '3'
+services:
+  ipaas_projeto:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: ipaas_projeto
+    ports:
+      - '8080:8080'
+      - '5005:5005'
+    environment:
+      - ADDITIONAL_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx1G -Xms128m -XX:MaxMetaspaceSize=128m
+      - PROFILE=dev
+    links:
+      - postgres
+    
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: ipaas
+      POSTGRES_PASSWORD: 12345
+    volumes:
+      - ./docker/volume_postgres:/var/lib/postgresql/data
